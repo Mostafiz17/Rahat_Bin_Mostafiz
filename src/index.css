@@ -1,0 +1,337 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  DESIGN TOKENS
+  Typography: Helvetica (display) + DM Sans (body/UI) — only these two.
+  Type scale follows a strict 1.25 ratio: 16 → 20 → 24 → 30 → 36–56 → 48–88.
+  Every color/shadow is a named token with an explicit value per mode.
+*/
+@theme inline {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* Monospace is remapped to DM Sans on purpose (only two fonts allowed). */
+  --font-mono: "DM Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --color-canvas: var(--canvas);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+
+  --shadow-card: var(--shadow-card-src);
+  --shadow-pop: var(--shadow-pop-src);
+
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.65;
+  --text-title: 1.5rem;
+  --text-title--line-height: 1.25;
+  --text-h3: 1.875rem;
+  --text-h3--line-height: 1.2;
+  --text-section: clamp(2.25rem, 4.5vw, 3.5rem);
+  --text-section--line-height: 1.05;
+  --text-display: clamp(3rem, 7vw, 5.5rem);
+  --text-display--line-height: 0.95;
+  --text-story: clamp(1.5rem, 2.8vw, 2.25rem);
+  --text-story--line-height: 1.45;
+  --text-marquee: clamp(2rem, 5vw, 3.5rem);
+  --text-marquee--line-height: 1.05;
+  --text-menu: clamp(1.875rem, 7vw, 2.75rem);
+  --text-menu--line-height: 1.1;
+  --text-giant: clamp(3rem, 11vw, 8.75rem);
+  --text-giant--line-height: 0.9;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── LIGHT MODE — exact palette ─────────────────────────── */
+:root {
+  --canvas: #fafafa;          /* page background */
+  --fg: #111827;              /* gray-900, primary text */
+  --muted: #6b7280;           /* gray-500, secondary text */
+  --card: #ffffff;            /* card surface */
+  --card-glass: rgb(255 255 255 / 0.85);
+  --line: #e5e7eb;            /* gray-200 borders */
+  --accent: #4f46e5;          /* indigo-600 */
+  --accent-2: #7c3aed;        /* violet-600 */
+  --accent-3: #0891b2;        /* cyan-600 */
+  --shadow-card-src: 0 1px 2px rgb(17 24 39 / 0.05), 0 16px 32px -16px rgb(17 24 39 / 0.14);
+  --shadow-pop-src: 0 2px 6px rgb(17 24 39 / 0.06), 0 32px 64px -24px rgb(17 24 39 / 0.22);
+  color-scheme: light;
+}
+
+/* ── DARK MODE — full bluish palette ──────────────────────── */
+.dark {
+  --canvas: #060a13;          /* deep navy-black background */
+  --fg: #edf1f8;              /* blue-white, primary text */
+  --muted: #9aa7bd;           /* bluish gray, secondary text */
+  --card: #0c1526;            /* dark navy card surface */
+  --card-glass: rgb(12 21 38 / 0.8);
+  --line: #1c2a44;            /* navy borders */
+  --accent: #6366f1;          /* indigo-500 */
+  --accent-2: #8b5cf6;        /* violet-500 */
+  --accent-3: #06b6d4;        /* cyan-500 */
+  --shadow-card-src: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 18px 36px -18px rgb(1 4 12 / 0.7);
+  --shadow-pop-src: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 36px 72px -28px rgb(1 4 12 / 0.85);
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  /* Solid glass surface — explicit per-mode rgba, border, backdrop blur */
+  .surface {
+    background-color: var(--card-glass);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+}
+
+/* Outlined display text (footer / ghost numbers) */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--fg);
+}
+
+/* Hide the native cursor only when the custom cursor is active (fine pointers) */
+@media (pointer: fine) {
+  .custom-cursor,
+  .custom-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* Film grain overlay (≈3% opacity) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  pointer-events: none;
+  z-index: 200;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 1s steps(6) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, 3%); }
+  80% { transform: translate(3%, -1%); }
+}
+
+/*
+  Full-page background washes — the ONLY place gradients are used.
+  Two stacked layers cross-fade on theme switch (gradients can't transition).
+  Light: soft near-white wash. Dark: deep bluish wash.
+*/
+.bg-wash {
+  position: fixed;
+  inset: 0;
+  z-index: -20;
+  pointer-events: none;
+  overflow: hidden;
+  transition: opacity 0.5s ease;
+}
+.bg-wash-light {
+  opacity: 1;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgb(255 255 255 / 0.95), rgb(244 246 253 / 0.85) 55%, rgb(237 240 249 / 0.8) 100%),
+    linear-gradient(180deg, #ffffff 0%, #f6f8fc 40%, #edf0f9 100%);
+}
+.bg-wash-dark {
+  opacity: 0;
+  background: linear-gradient(180deg, #080d18 0%, #060a13 45%, #04070d 100%);
+}
+.dark .bg-wash-light {
+  opacity: 0;
+}
+.dark .bg-wash-dark {
+  opacity: 1;
+}
+
+/* Drifting color blobs (the animated half of the gradient backdrop) */
+.wash-blob {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform;
+}
+.bg-wash-light .wb-1 {
+  width: 58rem; height: 34rem; left: -8%; top: -12%;
+  background: radial-gradient(closest-side, rgb(79 70 229 / 0.08), transparent 70%);
+  animation: wash-drift-a 26s ease-in-out infinite;
+}
+.bg-wash-light .wb-2 {
+  width: 48rem; height: 30rem; right: -10%; top: 30%;
+  background: radial-gradient(closest-side, rgb(124 58 237 / 0.07), transparent 70%);
+  animation: wash-drift-b 32s ease-in-out infinite;
+}
+.bg-wash-light .wb-3 {
+  width: 60rem; height: 34rem; left: 22%; bottom: -18%;
+  background: radial-gradient(closest-side, rgb(8 145 178 / 0.08), transparent 70%);
+  animation: wash-drift-c 28s ease-in-out infinite;
+}
+.bg-wash-dark .wb-1 {
+  width: 64rem; height: 38rem; left: -10%; top: -14%;
+  background: radial-gradient(closest-side, rgb(99 102 241 / 0.22), transparent 70%);
+  animation: wash-drift-a 26s ease-in-out infinite;
+}
+.bg-wash-dark .wb-2 {
+  width: 54rem; height: 34rem; right: -12%; top: 26%;
+  background: radial-gradient(closest-side, rgb(139 92 246 / 0.16), transparent 70%);
+  animation: wash-drift-b 32s ease-in-out infinite;
+}
+.bg-wash-dark .wb-3 {
+  width: 66rem; height: 38rem; left: 18%; bottom: -20%;
+  background: radial-gradient(closest-side, rgb(6 182 212 / 0.16), transparent 70%);
+  animation: wash-drift-c 28s ease-in-out infinite;
+}
+@keyframes wash-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(9rem, 5rem) scale(1.12); }
+}
+@keyframes wash-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1.05); }
+  50% { transform: translate(-8rem, 6rem) scale(0.92); }
+}
+@keyframes wash-drift-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6rem, -7rem) scale(1.1); }
+}
+
+/* Equalizer bars (audio motion graphic) */
+@keyframes eq-bounce {
+  0%, 100% { height: 25%; }
+  50% { height: 100%; }
+}
+
+/* Drifting wave divider tracks (reuses the marquee translation) */
+.wave-track {
+  animation-name: marquee-x;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+/* Slowly panning dotted grid (hero backdrop) */
+@keyframes grid-pan {
+  to { background-position: 56px 56px; }
+}
+.animate-grid-pan {
+  animation: grid-pan 9s linear infinite;
+}
+
+/* Mobile-specific smooth floating animation */
+@keyframes mobile-float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.animate-mobile-float {
+  animation: mobile-float-slow 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Mobile soft shimmer on highlight pills */
+@keyframes mobile-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-mobile-shimmer {
+  background-size: 200% 100%;
+  animation: mobile-shimmer 4s ease-in-out infinite;
+}
+
+/* Slow Ken Burns breathing for feature imagery */
+@keyframes kenburns {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50% { transform: scale(1.07) translateY(-1.5%); }
+}
+.animate-kenburns {
+  animation: kenburns 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Solid color shift for accent words (animated, but no gradients) */
+@keyframes accent-shift {
+  0%, 100% { color: var(--accent); }
+  33% { color: var(--accent-2); }
+  66% { color: var(--accent-3); }
+}
+.animate-accent-shift {
+  animation: accent-shift 7s ease-in-out infinite;
+}
+
+/* Marquee track (CSS keyframes = smooth, GPU-friendly) */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation-name: marquee-x;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 9999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
