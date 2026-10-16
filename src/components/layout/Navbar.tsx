@@ -126,7 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onTriggerEasterEgg }) => {
             >
               {/* TODO: Replace with actual image */}
               <img
-                src="/images/rahat.jpg"
+                src={`${import.meta.env.BASE_URL}images/rahat.jpg`}
                 alt=""
                 className="h-full w-full object-cover object-[center_15%]"
                 loading="eager"
@@ -232,7 +232,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onTriggerEasterEgg }) => {
             >
               <div className="flex items-center gap-3">
                 <img
-                  src="/images/rahat.jpg"
+                  src={`${import.meta.env.BASE_URL}images/rahat.jpg`}
                   alt="Rahat Bin Mostafiz"
                   className="h-11 w-11 rounded-full object-cover object-[center_15%] ring-2 ring-accent"
                 />

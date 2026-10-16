@@ -62,7 +62,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onReveal, onComplete }) =>
           >
             {/* TODO: Replace with actual image */}
             <img
-              src="/images/rahat.jpg"
+              src={`${import.meta.env.BASE_URL}images/rahat.jpg`}
               alt=""
               className="h-full w-full rounded-full object-cover object-[center_15%] shadow-pop"
             />

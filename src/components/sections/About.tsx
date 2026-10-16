@@ -91,7 +91,7 @@ export const About: React.FC = () => {
                 <div className="aspect-[4/5] w-full overflow-hidden">
                   <div className="h-full w-full animate-kenburns">
                     <img
-                      src="/images/about-workspace.jpg"
+                      src={`${import.meta.env.BASE_URL}images/about-workspace.jpg`}
                       alt="Rahat's editing and development workspace"
                       loading="lazy"
                       className="h-full w-full object-cover grayscale-[35%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
