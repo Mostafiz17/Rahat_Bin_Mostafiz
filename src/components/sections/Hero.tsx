@@ -18,7 +18,7 @@ import { EASE, EASE_EXPO } from "../../utils/motion";
   (keep the same filename) and rebuild.
   // TODO: Replace with actual image · Rahat's real photo
 */
-const profilePhoto = "/images/rahat.jpg";
+const profilePhoto = `${import.meta.env.BASE_URL}images/rahat.jpg`;
 
 /** Entrance variant factory: hidden → shown with a per-element delay. */
 const rise = (delay = 0, y = 24): Variants => ({
