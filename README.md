@@ -26,14 +26,14 @@ The site is visually finished, but it currently ships with **placeholder content
 | 3 | **Contact form doesn't send anything** | `src/components/sections/Contact.tsx` → `onSubmit` | It waits 1.6s, fires confetti, and says *"Message sent! I'll reply within 24 hours."* Nothing is sent. **Every message a visitor writes is silently lost**, and they believe you received it. |
 | 4 | **Invented employment dates** | `src/data/experiences.ts` → `period` | `2023 · Present`, `2022 · 2023`, `2021 · 2022` were guessed, not given by you. Verify against your real CV. |
 | 5 | **Fabricated projects & metrics** | `src/data/projects.ts` | "NovaFlow", "Echoes of Dhaka", "250K+ organic views", "99+ Lighthouse score", "Sub-100ms API latency" are all invented. Replace with real work, or mark the section as concept work. |
-| 6 | **Placeholder photos** | `public/images/` | `rahat.jpg` is an AI-generated stand-in, not you. `about-workspace.jpg`, `project-saas.jpg`, `project-video.jpg` are stock-style fillers. |
+| 6 | **Placeholder photos** | `public/images/` | `about-workspace.jpg`, `project-saas.jpg`, and `project-video.jpg` remain stock-style fillers. |
 
 ---
 
 ## ✅ Things to do
 
 ### Priority 1 · Blocks launch
-- [ ] Replace `public/images/rahat.jpg` with your real photo (keep the filename · navbar, hero, preloader and mobile menu all read it automatically)
+- [x] Replace `public/images/rahat.jpg` with the portfolio portrait (the navbar, hero, preloader and mobile menu share this filename)
 - [ ] Replace both `embedId` values in `src/data/projects.ts` with your real YouTube IDs
 - [ ] Delete or replace every entry in `src/data/testimonials.ts`
 - [ ] Connect the contact form to a real backend (see AI prompts below)

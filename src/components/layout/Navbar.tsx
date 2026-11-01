@@ -124,7 +124,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onTriggerEasterEgg }) => {
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
               className="relative block h-9 w-9 sm:h-10 sm:w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-accent/70 ring-offset-2 ring-offset-canvas"
             >
-              {/* TODO: Replace with actual image */}
               <img
                 src={`${import.meta.env.BASE_URL}images/rahat.jpg`}
                 alt=""

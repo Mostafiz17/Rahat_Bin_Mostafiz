@@ -60,7 +60,6 @@ export const Preloader: React.FC<PreloaderProps> = ({ onReveal, onComplete }) =>
             className="relative h-24 w-24"
             aria-hidden="true"
           >
-            {/* TODO: Replace with actual image */}
             <img
               src={`${import.meta.env.BASE_URL}images/rahat.jpg`}
               alt=""

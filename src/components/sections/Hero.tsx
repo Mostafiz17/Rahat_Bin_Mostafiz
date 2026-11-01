@@ -14,9 +14,8 @@ import { EASE, EASE_EXPO } from "../../utils/motion";
 
 /*
   YOUR PHOTO · the hero uses the exact file, untouched (no filters, no recolor).
-  To use your real photo, replace public/images/rahat.jpg with your photo
-  (keep the same filename) and rebuild.
-  // TODO: Replace with actual image · Rahat's real photo
+  The portrait is kept under a stable public asset path so every portrait
+  surface can share the same photograph.
 */
 const profilePhoto = `${import.meta.env.BASE_URL}images/rahat.jpg`;
 
@@ -153,7 +152,6 @@ export const Hero: React.FC<{ started?: boolean }> = ({ started = true }) => {
               className="inline-flex items-center gap-2 rounded-full border border-line bg-card/70 px-4 py-2 text-sm font-medium text-fg backdrop-blur"
             >
               <Sparkles className="h-4 w-4 text-accent" />
-              <span aria-hidden="true">👋</span>
               <ScrambleText text="Welcome to my portfolio" active={started} />
             </motion.span>
 
@@ -290,7 +288,7 @@ export const Hero: React.FC<{ started?: boolean }> = ({ started = true }) => {
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                   }}
-                  className="absolute inset-0 h-full w-full object-cover object-[center_18%]"
+                  className="absolute inset-0 h-full w-full object-cover object-[center_20%]"
                   loading="eager"
                   fetchPriority="high"
                 />
