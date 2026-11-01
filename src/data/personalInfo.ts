@@ -135,8 +135,8 @@ export const personalInfo = {
       description: "Architecting scalable, lightning-fast web applications with modern tech stacks like React, Next.js, Node.js, and clean API design.",
       icon: "Code2",
       tags: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS"],
-      accent: "from-indigo-500/20 to-blue-500/20",
-      borderAccent: "group-hover:border-indigo-500/50"
+      accent: "from-accent/20 to-accent-2/20",
+      borderAccent: "group-hover:border-accent/50"
     },
     {
       id: "video-edit",
@@ -144,8 +144,8 @@ export const personalInfo = {
       description: "Crafting captivating visual pacing, documentary and commercial narratives with precision pacing, dynamic sound design, and color grading.",
       icon: "Video",
       tags: ["Premiere Pro", "DaVinci Resolve", "Color Grading", "Sound Design", "VFX"],
-      accent: "from-violet-500/20 to-purple-500/20",
-      borderAccent: "group-hover:border-violet-500/50"
+      accent: "from-accent/20 to-accent-2/20",
+      borderAccent: "group-hover:border-accent/50"
     },
     {
       id: "motion-design",
@@ -153,8 +153,8 @@ export const personalInfo = {
       description: "Designing kinetic typography, logo animations, animated UI product reveals, and visual effects in Adobe After Effects.",
       icon: "Sparkles",
       tags: ["After Effects", "Kinetic Typography", "2D Animation", "UI Mockups"],
-      accent: "from-cyan-500/20 to-teal-500/20",
-      borderAccent: "group-hover:border-cyan-500/50"
+      accent: "from-accent/20 to-accent-3/20",
+      borderAccent: "group-hover:border-accent/50"
     },
     {
       id: "ui-ux",
@@ -162,8 +162,8 @@ export const personalInfo = {
       description: "Bridging the gap between design and code with high-fidelity Figma prototypes, micro-interactions, responsive systems, and design tokens.",
       icon: "Palette",
       tags: ["Figma", "Design Systems", "Framer Motion", "Responsive UX"],
-      accent: "from-rose-500/20 to-orange-500/20",
-      borderAccent: "group-hover:border-rose-500/50"
+      accent: "from-accent-2/20 to-accent-3/20",
+      borderAccent: "group-hover:border-accent/50"
     }
   ]
 };
